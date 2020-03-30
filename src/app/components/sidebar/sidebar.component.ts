@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { KeycloakSecurityService } from 'app/services/keycloak-security.service';
 
 declare const $: any;
 declare interface RouteInfo {
@@ -26,7 +27,7 @@ export const ROUTES: RouteInfo[] = [
 export class SidebarComponent implements OnInit {
   menuItems: any[];
 
-  constructor() { }
+  constructor(public securityService: KeycloakSecurityService) { }
 
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem);
@@ -37,4 +38,5 @@ export class SidebarComponent implements OnInit {
       }
       return true;
   };
+
 }

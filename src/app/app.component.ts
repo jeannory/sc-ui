@@ -1,4 +1,5 @@
-import { Component} from '@angular/core';
+import { Component, OnInit} from '@angular/core';
+import { KeycloakSecurityService } from './services/keycloak-security.service';
 
 
 @Component({
@@ -6,6 +7,17 @@ import { Component} from '@angular/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
+
+  title = 'sc-ui';
+
+  constructor(public securityService: KeycloakSecurityService){
+
+  }
+
+  ngOnInit(): void {
+    console.log('AppComponent');
+  }
+
 
 }

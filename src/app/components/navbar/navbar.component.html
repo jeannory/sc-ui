@@ -9,7 +9,7 @@
             <span class="navbar-toggler-icon icon-bar"></span>
             <span class="navbar-toggler-icon icon-bar"></span>
         </button>
-        <div class="collapse navbar-collapse justify-content-end" id="navigation">
+        <div class="collapse navbar-collapse justify-content-end" id="navigation" *ngIf="securityService.kc.authenticated">
             <form class="navbar-form">
                 <div class="input-group no-border">
                     <input type="text" value="" class="form-control" placeholder="Search...">
@@ -19,15 +19,15 @@
                     </button>
                 </div>
             </form>
-            <ul class="navbar-nav">
-                <li class="nav-item">
+            <ul class="navbar-nav" *ngIf="securityService.kc.authenticated">
+                <!-- <li class="nav-item">
                     <a class="nav-link" href="javascript:void(0)">
                         <i class="material-icons">dashboard</i>
                         <p>
                             <span class="d-lg-none d-md-block">Stats</span>
                         </p>
                     </a>
-                </li>
+                </li> -->
                 <li class="nav-item dropdown">
                     <a class="nav-link" href="javascript:void(0)" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="material-icons">notifications</i>
@@ -45,10 +45,30 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0)">
+                    <a class="clickable nav-link" (click)="onEditAccount()">
                         <i class="material-icons">person</i>
                         <p>
-                            <span class="d-lg-none d-md-block">Account</span>
+                            <span class="d-lg-none d-md-block">account</span>
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="clickable nav-link" (click)="onLogout()">
+                        <i class="material-icons">exit_to_app</i>
+                        <p>
+                            <span class="d-lg-none d-md-block">logout</span>
+                        </p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="collapse navbar-collapse justify-content-end" id="navigation" *ngIf="!securityService.kc.authenticated">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="clickable nav-link" (click)="onLogin()">
+                        <i class="material-icons">exit_to_app</i>
+                        <p>
+                            <span class="d-lg-none d-md-block">login</span>
                         </p>
                     </a>
                 </li>
