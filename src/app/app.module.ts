@@ -1,5 +1,5 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
+import { NgModule, DoBootstrap, ApplicationRef } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
@@ -22,6 +22,12 @@ import {
   AgmCoreModule
 } from '@agm/core';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+import { KeycloakSecurityService } from './services/keycloak-security.service';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { RequestInterceptorService } from './services/request-interceptor.service';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
+const securityService = new KeycloakSecurityService();
 
 @NgModule({
   imports: [
@@ -34,14 +40,33 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
     AppRoutingModule,
     AgmCoreModule.forRoot({
       apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
-    })
+    }),
+    HttpClientModule,
+    MatSnackBarModule
   ],
   declarations: [
     AppComponent,
-    AdminLayoutComponent,
-
+    AdminLayoutComponent
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    { provide: KeycloakSecurityService, useValue: securityService },
+    { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptorService, multi: true }
+  ],
+  // bootstrap: [AppComponent]
 })
-export class AppModule { }
+// export class AppModule {
+
+// }
+export class AppModule implements DoBootstrap {
+
+  ngDoBootstrap(appRef: ApplicationRef): void {
+    securityService.init()
+      .then(res => {
+        console.log(res);
+        appRef.bootstrap(AppComponent);
+      })
+      .catch((err) => {
+        console.log('Keycloak error ', err);
+      });
+  }
+}
