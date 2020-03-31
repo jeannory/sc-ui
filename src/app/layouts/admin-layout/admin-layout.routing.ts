@@ -9,6 +9,7 @@ import { MapsComponent } from '../../maps/maps.component';
 import { NotificationsComponent } from '../../notifications/notifications.component';
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
 import { RoleGuardService } from 'app/services/role-guard.service';
+import { HomeComponent } from 'app/home/home.component';
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -53,9 +54,19 @@ export const AdminLayoutRoutes: Routes = [
     //         component: UpgradeComponent
     //     }]
     // }
+
+
+    {
+        path: 'home',
+        component: HomeComponent
+    },
     {
         path: 'dashboard',
-        component: DashboardComponent
+        component: DashboardComponent,
+        canActivate: [RoleGuardService],
+        data: {
+            expectedRole: ['user', 'manager']
+        }
     },
     {
         path: 'user-profile',

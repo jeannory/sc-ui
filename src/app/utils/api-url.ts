@@ -6,7 +6,11 @@ export class ApiUrl {
     private static readonly USERS = '/users';
     private static readonly CONNECTED_USER = '/connected-user'
 
-    static get GET_CONNECTED_USER(): string{
+    static get GET_CONNECTED_USER(): string {
         return `${this.BASE_SC_USER_URL}${this.BASE_API}${this.USERS}${this.CONNECTED_USER}`;
+    }
+
+    static get GET_USERS(): string{
+        return `${this.BASE_SC_USER_URL}${this.BASE_API}${this.USERS}`;
     }
 }

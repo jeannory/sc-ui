@@ -11,9 +11,13 @@ export class ApiService {
 
   constructor(
     private http: HttpClient,
-    ) { }
+  ) { }
 
-    public getConnectedUser() {
-      return this.http.get(this.apiUrl.GET_CONNECTED_USER)
-    }
+  public getConnectedUser() {
+    return this.http.get(this.apiUrl.GET_CONNECTED_USER)
+  }
+
+  public getUsers(pageNo: number, pageSize: number, sortBy: string) {
+    return this.http.get(this.apiUrl.GET_USERS + '?pageNo=' + pageNo + '&pageSize=' + pageSize + '&sortBy=' + sortBy);
+  }
 }

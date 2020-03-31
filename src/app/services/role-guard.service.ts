@@ -36,7 +36,7 @@ export class RoleGuardService implements CanActivate {
       verticalPosition: 'top',
       duration: 5000,
     });
-    this.router.navigate(['/dashboard']);
+    this.router.navigate(['/home']);
     return false;
   }
 

@@ -26,6 +26,7 @@ import { KeycloakSecurityService } from './services/keycloak-security.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RequestInterceptorService } from './services/request-interceptor.service';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { HomeComponent } from './home/home.component';
 
 const securityService = new KeycloakSecurityService();
 
@@ -46,7 +47,8 @@ const securityService = new KeycloakSecurityService();
   ],
   declarations: [
     AppComponent,
-    AdminLayoutComponent
+    AdminLayoutComponent,
+    // HomeComponent
   ],
   providers: [
     { provide: KeycloakSecurityService, useValue: securityService },
